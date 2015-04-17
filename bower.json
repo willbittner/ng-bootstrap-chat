@@ -1,0 +1,27 @@
+{
+  "name": "ng-bootstrap-chat",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Will Bittner",
+      "email": "will@brookfield.vc"
+    }
+  ],
+  "main": [
+    "dist/ng-bootstrap-chat.js"
+  ],
+  "ignore": [
+    "src",
+    "test",
+    "Gruntfile.js",
+    "**/.*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "angular-mocks": ">=1.2.0",
+    "angular-scenario": ">=1.2.0",
+    "angular": ">=1.2.0",
+    "angular-resource": ">=1.2.0",
+    "angular-scroll-glue": "~2.0.5"
+  }
+}

@@ -5,6 +5,11 @@
 .idea
 .project
 .settings
+.jshintrc
+.editorconfig
+.bowerrc
+.yo-rc.json
+.travis*
 
 # Ignore node stuff
 node_modules/
