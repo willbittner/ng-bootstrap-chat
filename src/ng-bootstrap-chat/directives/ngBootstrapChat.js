@@ -1,4 +1,4 @@
-(function (angular, undefined) {
+(function (angular) {
     'use strict';
     // function fakeNgModel(initValue) {
     //     return {
@@ -8,47 +8,48 @@
     //         $viewValue: initValue
     //     };
     // }
-    angular.module('ngBootstapChat.directives', ['luegg.directives'])
-        .controller('ngBootstrapChatCtrl', ['$scope', function ($scope) {
-            var vm = this;
-            var isHidden = false;
-            vm.messages = $scope.messages;
-            vm.username = $scope.username;
-            vm.inputPlaceholderText = $scope.inputPlaceholderText;
-            vm.submitButtonText = $scope.submitButtonText;
-            vm.title = $scope.title;
-            vm.theme = 'chat-th-' + $scope.theme;
-            vm.writingMessage = '';
-            vm.submitFunction = function () {
-                $scope.submitFunction()(vm.writingMessage, vm.username);
-                vm.writingMessage = '';
-            };
-            vm.panelStyle = {
-                'display': 'block'
-            };
-            vm.chatButtonClass = 'glyphicon-minus icon_minim';
-            vm.toggle = toggle;
-
-            function toggle() {
-                if (isHidden) {
-                    vm.chatButtonClass = 'glyphicon-minus icon_minim';
-                    vm.panelStyle = {
-                        'display': 'block'
-                    };
-                    isHidden = false;
-                } else {
-                    vm.chatButtonClass = 'glyphicon-plus icon_minim';
-                    vm.panelStyle = {
-                        'display': 'none'
-                    };
-                    isHidden = true;
-                }
-            }
-        }])
-        .directive('ngBootstapChat', function () {
+    angular.module('ngBootstrapChat.directives', ['luegg.directives'])
+        // .controller('ChatCtrl', ['$scope', function ($scope) {
+        //     console.log('Chat ctrl function');
+        //     var vm2Ctrl = this;
+        //     var isHidden = false;
+        //     vm2Ctrl.messages = $chatSession.messages;
+        //     vm2Ctrl.username = $chatSession.username;
+        //     vm2Ctrl.inputPlaceholderText = $chatSession.inputPlaceholderText;
+        //     vm2Ctrl.submitButtonText = $chatSession.submitButtonText;
+        //     vm2Ctrl.title = $chatSession.title;
+        //     vm2Ctrl.theme = 'chat-th-' + $chatSession.theme;
+        //     vm2Ctrl.writingMessage = '';
+        //     vm2Ctrl.submitFunction = function () {
+        //         $chatSession.submitFunction()(vm2Ctrl.writingMessage, vm2Ctrl.username);
+        //         vm2Ctrl.writingMessage = '';
+        //     };
+        //     vm2Ctrl.panelStyle = {
+        //         'display': 'block'
+        //     };
+        //     vm2Ctrl.chatButtonClass = 'glyphicon-minus icon_minim';
+        //     vm2Ctrl.toggle = toggle;
+        //     function toggle() {
+        //         if (isHidden) {
+        //             vm2Ctrl.chatButtonClass = 'glyphicon-minus icon_minim';
+        //             vm2Ctrl.panelStyle = {
+        //                 'display': 'block'
+        //             };
+        //             isHidden = false;
+        //         } else {
+        //             vm2Ctrl.chatButtonClass = 'glyphicon-plus icon_minim';
+        //             vm2Ctrl.panelStyle = {
+        //                 'display': 'none'
+        //             };
+        //             isHidden = true;
+        //         }
+        //     }
+        // }])
+        .directive('ngChat', ['chatSession', function (chatSession) {
+            console.log('ng-chat before return');
             return {
                 restrict: 'EA',
-                templateUrl: 'ngBootstrapChat.tmpl',
+                templateUrl: 'tpl/chatWindow.tmpl',
                 replace: true,
                 scope: {
                     messages: '=',
@@ -59,19 +60,18 @@
                     theme: '@',
                     submitFunction: '&'
                 },
-                link: function (scope) {
-                    if (!scope.inputPlaceholderText) {
-                        scope.inputPlaceholderText = 'Write your message here...';
+                link: function (scope, chatSession) {
+                    console.log('ng-chat in link ');
+                    if (!chatSession.inputPlaceholderText) {
+                        chatSession.inputPlaceholderText = 'Write your message here...';
                     }
-                    if (!scope.submitButtonText || scope.submitButtonText === '') {
-                        scope.submitButtonText = 'Send';
+                    if (!chatSession.submitButtonText || chatSession.submitButtonText === '') {
+                        chatSession.submitButtonText = 'Send';
                     }
-                    if (!scope.title) {
-                        scope.title = 'Chat';
+                    if (!chatSession.title) {
+                        chatSession.title = 'Chat';
                     }
                 },
-                controller: ngBootstrapChatCtrl,
-                controllerAs: 'vm'
             };
-        });
-}(angular));
+        }]);
+})(angular);
